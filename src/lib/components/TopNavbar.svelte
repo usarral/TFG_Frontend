@@ -1,11 +1,18 @@
 <script>
   import { AppBar } from "@skeletonlabs/skeleton";
   import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
+  import { onMount } from "svelte";
+  onMount(() => {
+    const domain = window.location.hostname;
+    const $ = (selector) => document.querySelector(selector);
+    const aHome = $("#aHome");
+    aHome.href = `http://${domain}/`;
+  });
 </script>
 
 <AppBar class="rounded-3xl">
   <svelte:fragment slot="lead">
-    <a href="/" class="flex items-center"
+    <a id="aHome" class="flex items-center"
       ><img
         src="/logo.png"
         alt="PerformSquad Logo"

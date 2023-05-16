@@ -4,11 +4,9 @@
   // get the last param from the
   const domain = window.location.hostname;
   const id = window.location.href.split("/").pop();
-
   async function queryDelete(id) {
     // query the delete
     const options = { method: "DELETE" };
-
     // fetch the delete and save the response in a variable
     const response = await fetch(`http://${domain}/arbitro/${id}`, options);
     return response;

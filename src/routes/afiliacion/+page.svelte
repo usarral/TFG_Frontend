@@ -86,6 +86,6 @@
   <input
     type="submit"
     class="btn variant-filled-surface m-2 w-1/5 self-center"
-    value="Iniciar Sesión"
+    value="Afiliarse"
   />
 </form>

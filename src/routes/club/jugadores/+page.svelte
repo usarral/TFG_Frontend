@@ -19,32 +19,32 @@
         const table = $(".table");
         data.forEach((jugador) => {
           table.innerHTML += `<tr>
-                <td>${
-                  jugador.apellido2 != null
-                    ? jugador.apellido +
-                      " " +
-                      jugador.apellido2 +
-                      ", " +
-                      jugador.nombre
-                    : jugador.apellido1 + ", " + jugador.nombre
-                }</td>
-                <td>${
-                  //calcular edad
-                  new Date().getFullYear() -
-                  new Date(jugador.fechaNacimiento).getFullYear()
-                }</td>
-                <td>${jugador.nombre}</td>
-                <td>${jugador.edad}</td>
-                <td>${jugador.DNI}</td> 
-                <td>${jugador.club}</td>  
-                <td style="display: flex;flex-direction: column;">
-                    <a href="/federacion/categorias/editar/${
-                      jugador.id
-                    }" class="btn btn-sm variant-primary">Editar</a>
-                    <a href="/federacion/categorias/borrar/${
-                      jugador.id
-                    }" class="btn btn-sm variant-danger">Borrar</a>
-                    </td>`;
+                  <td>${
+                    jugador.apellido2 != null
+                      ? jugador.apellido +
+                        " " +
+                        jugador.apellido2 +
+                        ", " +
+                        jugador.nombre
+                      : jugador.apellido1 + ", " + jugador.nombre
+                  }</td>
+                  <td>${
+                    //calcular edad
+                    new Date().getFullYear() -
+                    new Date(jugador.fechaNacimiento).getFullYear()
+                  }</td>
+                  <td>${jugador.nombre}</td>
+                  <td>${jugador.edad}</td>
+                  <td>${jugador.DNI}</td> 
+                  <td>${jugador.club}</td>  
+                  <td style="display: flex;flex-direction: column;">
+                      <a href="/federacion/categorias/editar/${
+                        jugador.id
+                      }" class="btn btn-sm variant-primary">Editar</a>
+                      <a href="/federacion/categorias/borrar/${
+                        jugador.id
+                      }" class="btn btn-sm variant-danger">Borrar</a>
+                      </td>`;
         });
       } else {
         console.error("Error al obtener los datos de la API:", response.status);
@@ -70,12 +70,12 @@
     <a
       href="/federacion/jugadors/crear"
       class="
-        btn
-        variant-filled-primary
-        m-4
-        p-4
-        w-80
-        "
+          btn
+          variant-filled-primary
+          m-4
+          p-4
+          w-80
+          "
     >
       Nuevo jugador
     </a>

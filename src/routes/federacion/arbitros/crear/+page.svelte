@@ -63,8 +63,8 @@
     </label>
   </div>
   <div class="text-center">
-    <a
-      href="/federacion/arbitros/crear"
+    <button
+      type="submit"
       class="
     btn
     variant-filled-primary
@@ -74,6 +74,6 @@
     "
     >
       Guardar
-    </a>
+    </button>
   </div>
 </form>

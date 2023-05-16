@@ -14,6 +14,7 @@
   <svelte:fragment slot="lead">
     <a id="aHome" class="flex items-center"
       ><img
+        loading="lazy"
         src="/logo.png"
         alt="PerformSquad Logo"
         class="aspect-auto h-10 m-2"

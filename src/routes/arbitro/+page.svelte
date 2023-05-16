@@ -7,6 +7,7 @@
   <a class="card card-hover overflow-hidden" href="equipos">
     <header>
       <img
+        loading="lazy"
         src="/equipos.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
@@ -20,6 +21,7 @@
   <a class="card card-hover overflow-hidden" href="jugadores">
     <header>
       <img
+        loading="lazy"
         src="/equipos.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
@@ -33,6 +35,7 @@
   <a class="card card-hover overflow-hidden" href="partidos">
     <header>
       <img
+        loading="lazy"
         src="/equipos.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
@@ -46,6 +49,7 @@
   <a class="card card-hover overflow-hidden" href="Staff">
     <header>
       <img
+        loading="lazy"
         src="/equipos.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
@@ -59,6 +63,7 @@
   <a class="card card-hover overflow-hidden" href="sanciones">
     <header>
       <img
+        loading="lazy"
         src="/federation.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"

@@ -5,34 +5,22 @@
   import "@skeletonlabs/skeleton/styles/skeleton.css";
   // Most of your app wide CSS should be put in this file
   import "../app.postcss";
-  import { AppShell, AppBar } from "@skeletonlabs/skeleton";
+  import { AppShell } from "@skeletonlabs/skeleton";
+  import TopNavbar from "$lib/components/TopNavbar.svelte";
 </script>
 
 <!-- App Shell -->
-<AppShell>
+<AppShell class="gap-2 px-4 py-2 ">
   <svelte:fragment slot="header">
     <!-- App Bar -->
-    <AppBar class="rounded-3xl">
-      <svelte:fragment slot="lead">
-        <a href="/" class="flex items-center"
-          ><img
-            src="/logo.png"
-            alt="PerformSquad Logo"
-            class="aspect-auto h-10 m-2"
-          />
-          <strong class="text-xl uppercase">PerformSquad</strong></a
-        >
-      </svelte:fragment>
-      <svelte:fragment slot="trail">
-        <a class="btn btn-sm variant-ghost-surface" href="/afiliacion">
-          Afiliarse
-        </a>
-        <a class="btn btn-sm variant-ghost-surface" href="/login"> Login </a>
-      </svelte:fragment>
-    </AppBar>
+    <TopNavbar />
+    <!-- Toasts -->
   </svelte:fragment>
   <!-- Page Route Content -->
-  <div class="rounded-3xl p-4">
+
+  <div
+    class="rounded-3xl p-4 card variant-filled-surface max-h-screen min-h-full overflow-y-auto overflow-x-hidden"
+  >
     <slot />
   </div>
 </AppShell>

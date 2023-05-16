@@ -12,9 +12,6 @@
     <input class="input" type="password" placeholder="Contraseña..." />
   </label>
   <div class="p-6"><a href="recoverpassword">¿Contraseña olvidada?</a></div>
-  <input
-    type="submit"
-    class="btn variant-filled-surface m-2 w-1/5 self-center"
-    value="Iniciar Sesión"
-  />
+  <a href="/arbitro">Club dashboard</a>
+  <button class="button is-primary">Login</button>
 </form>

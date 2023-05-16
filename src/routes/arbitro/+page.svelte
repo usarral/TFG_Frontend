@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Inicio Federación - PerformSquad</title>
+  <title>Inicio Arbitro - PerformSquad</title>
 </svelte:head>
 
 <h1 class="text-4xl text-center py-8">Inicio Arbitros</h1>

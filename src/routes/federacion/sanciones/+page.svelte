@@ -55,7 +55,7 @@
   });
   const tableSimple = {
     head: ["Fecha de la sanción", "Destinatario", "Tipo de sanción"], //Pasar datos a la tabla aqui
-    body: tableMapperValues(data, ["name", "symbol", "weight"]),
+    body: tableMapperValues(data),
   };
 </script>
 

@@ -55,7 +55,7 @@
   });
   const tableSimple = {
     head: ["Nombre", "Fecha de nacimiento", "DNI", "Club", "Asociaciones"], //Pasar datos a la tabla aqui
-    body: tableMapperValues(data, ["name", "symbol", "weight"]),
+    body: tableMapperValues(data),
   };
 </script>
 

@@ -47,7 +47,7 @@
   });
   const tableSimple = {
     head: ["Nombre", "Edad mínima", "Edad máxima", "Género", "Acciones"],
-    body: tableMapperValues(data, ["name", "symbol", "weight"]),
+    body: tableMapperValues(data),
   };
 </script>
 

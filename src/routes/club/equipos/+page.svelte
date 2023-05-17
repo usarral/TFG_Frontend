@@ -14,36 +14,21 @@
       if (response.ok) {
         data = await response.json(); // Almacenar los datos recuperados en la variable data
         //mostrar en la tabla con clase table los datos de la variable data
-
         const $ = (selector) => document.querySelector(selector);
         const table = $(".table");
-        data.forEach((equipo) => {
+        // for each element in the array
+        data.data.forEach((element) => {
           table.innerHTML += `<tr>
-                <td>${
-                  equipo.apellido2 != null //Ni idea tu sabras que pones aqui tbh
-                    ? equipo.apellido +
-                      " " +
-                      equipo.apellido2 +
-                      ", " +
-                      equipo.nombre
-                    : equipo.apellido1 + ", " + equipo.nombre
-                }</td>
-                <td>${
-                  //calcular edad
-                  new Date().getFullYear() -
-                  new Date(equipo.fechaNacimiento).getFullYear()
-                }</td>
-                <td>${equipo.nombre}</td>
-                <td>${equipo.email}</td> 
-                <td>${equipo.telefono}</td>  
-                <td style="display: flex;flex-direction: column;">
-                    <a href="/federacion/categorias/editar/${
-                      equipo.id
-                    }" class="btn btn-sm variant-primary">Editar</a>
-                    <a href="/federacion/categorias/borrar/${
-                      equipo.id
-                    }" class="btn btn-sm variant-danger">Borrar</a>
-                    </td>`;
+            <td><img
+loading="lazy" class="rounded-full" src="${element.escudo}"></td>
+            <td>${element.nombre}</td>
+            <td>${element.email}</td>
+            <td>${element.telefono}</td>
+            <td>
+              <a href="/federacion/equipos/editar/${element.id}" class="btn variant-filled-primary">Editar</a>
+              <a href="/federacion/equipos/eliminar/${element.id}" class="btn variant-filled-danger">Eliminar</a>
+            </td>
+            </td>`;
         });
       } else {
         console.error("Error al obtener los datos de la API:", response.status);
@@ -53,8 +38,8 @@
     }
   });
   const tableSimple = {
-    head: ["Nombre", "Email", "Teléfono", "Acciones"], //Pasar datos a la tabla aqui
-    body: tableMapperValues(data, ["name", "symbol", "weight"]),
+    head: ["Foto", "Nombre", "Email", "Teléfono", "Acciones"], //Pasar datos a la tabla aqui
+    body: tableMapperValues(data),
   };
 </script>
 

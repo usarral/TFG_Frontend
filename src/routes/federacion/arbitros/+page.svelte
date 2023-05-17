@@ -17,8 +17,16 @@
 
         const $ = (selector) => document.querySelector(selector);
         const table = $(".table");
-        data.forEach((arbitro) => {
+        data.data.forEach((arbitro) => {
           table.innerHTML += `<tr>
+            <td>
+              <img
+                src="${arbitro.foto}"
+                alt="Foto de ${arbitro.nombre}"
+                class="rounded-full w-10 h-10"
+                loading="lazy"
+              />
+              </td>
             <td>${
               arbitro.apellido2 != null
                 ? arbitro.apellido +
@@ -52,7 +60,7 @@
     }
   });
   const tableSimple = {
-    head: ["Nombre", "Edad", "DNI", "Estado", "Acciones"], //Pasar datos a la tabla aqui
+    head: ["Foto", "Nombre", "Edad", "DNI", "Estado", "Acciones"], //Pasar datos a la tabla aqui
     body: tableMapperValues(data),
   };
 </script>

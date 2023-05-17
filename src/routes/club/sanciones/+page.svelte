@@ -1,4 +1,5 @@
 <script>
+  //Virutas eh eh
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
 

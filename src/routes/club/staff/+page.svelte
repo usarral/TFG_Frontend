@@ -1,4 +1,5 @@
 <script>
+  //Virutas eh eh
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
 
@@ -9,26 +10,40 @@
     // get domain from url
     const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/sancion`);
+      const response = await fetch(`http://${domain}:3000/staff`);
       if (response.ok) {
         data = await response.json();
         const $ = (selector) => document.querySelector(selector);
         const table = $(".table");
-        data.data.forEach((sancion) => {
+        data.data.forEach((staff) => {
           table.innerHTML += `<tr>
-            <td>${sancion.arbitro}</td> 
-            <td>${sancion.tipo}</td> 
-            <td>${sancion.destinatario}</td>  
-            <td>${sancion.causa}</td>  
-            <td>${new Date(sancion.fecha).toLocaleDateString()}</td>
-                  <td>${sancion.partido}</td>  
-                  <td>${sancion.estado}</td>  
+            <td><img
+                loading="lazy"
+                class="rounded-full"
+                src="${staff.foto}"></td>
+                  <td>${
+                    staff.apellido2 != null
+                      ? staff.apellido +
+                        " " +
+                        staff.apellido2 +
+                        ", " +
+                        staff.nombre
+                      : staff.apellido1 + ", " + staff.nombre
+                  }</td>
+                  <td>${
+                    new Date().getFullYear() -
+                    new Date(staff.fechaNacimiento).getFullYear()
+                  }</td>
+                  <td>${staff.DNI}</td> 
+                  <td>${staff.email}</td>  
+                  <td>${staff.cargo}</td>  
+                  <td>${staff.estado}</td>  
                   <td style="display: flex;flex-direction: column;">
                       <a href="/federacion/categorias/editar/${
-                        sancion.id
+                        staff.id
                       }" class="btn btn-sm variant-primary">Editar</a>
                       <a href="/federacion/categorias/borrar/${
-                        sancion.id
+                        staff.id
                       }" class="btn btn-sm variant-danger">Borrar</a>
                       </td>`;
         });
@@ -41,12 +56,12 @@
   });
   const tableSimple = {
     head: [
-      "Arbitro",
-      "Destino de sanción",
-      "Sancionado",
-      "Causa",
-      "Fecha Sanción",
-      "Partido",
+      "Foto",
+      "Nombre",
+      "Edad",
+      "DNI",
+      "Email",
+      "Cargo",
       "Estado",
       "Acciones",
     ], //Pasar datos a la tabla aqui
@@ -55,15 +70,15 @@
 </script>
 
 <svelte:head>
-  <title>Gestión de Sanciones - PerformSquad</title>
+  <title>Gestión de Staff - PerformSquad</title>
 </svelte:head>
 
 <div class="flex flex-col gap-8">
-  <h1 class="text-4xl text-center py-8">Gestión de Sanciones</h1>
+  <h1 class="text-4xl text-center py-8">Gestión de Staff</h1>
   <Table source={tableSimple} />
   <div class="text-center">
     <a
-      href="/federacion/sancions/crear"
+      href="/federacion/staffs/crear"
       class="
           btn
           variant-filled-primary
@@ -72,7 +87,7 @@
           w-80
           "
     >
-      Nuevo sancion
+      Nuevo staff
     </a>
   </div>
 </div>

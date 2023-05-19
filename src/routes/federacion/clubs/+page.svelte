@@ -1,5 +1,4 @@
 <script>
-  //Virutas eh eh
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
 
@@ -32,8 +31,8 @@
             <td>${club.email}</td>
             <td>${club.telefono}</td>
               <td class="flex flex-col text-right">
-                  <a href="/federacion/categorias/editar/${club.id}" class="btn btn-sm variant-primary">Editar</a>
-                  <a href="/federacion/categorias/borrar/${club.id}" class="btn btn-sm variant-danger">Borrar</a>
+                  <a href="/federacion/clubs/editar/${club.id}" class="btn btn-sm variant-primary">Editar</a>
+                  <a href="/federacion/clubs/borrar/${club.id}" class="btn btn-sm variant-danger">Borrar</a>
                   </td>`;
         });
       } else {
@@ -67,7 +66,7 @@
       w-80
       "
     >
-      Nuevo categoria
+      Nuevo club
     </a>
   </div>
 </div>

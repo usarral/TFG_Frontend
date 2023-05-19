@@ -1,9 +1,7 @@
 <script>
-  //Virutas eh eh
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
-
-  let data = []; // Variable para almacenar los datos de la API
+  let data = [];
 
   onMount(async () => {
     // vecomo

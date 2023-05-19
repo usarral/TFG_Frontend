@@ -1,6 +1,5 @@
 <script>
   import { AppBar } from "@skeletonlabs/skeleton";
-  import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
   onMount(() => {
     const domain = window.location.hostname;
@@ -12,7 +11,7 @@
 
 <AppBar class="rounded-3xl">
   <svelte:fragment slot="lead">
-    <a id="aHome" class="flex items-center"
+    <a id="aHome" class="flex items-center" href="/"
       ><img
         loading="lazy"
         src="/logo.png"

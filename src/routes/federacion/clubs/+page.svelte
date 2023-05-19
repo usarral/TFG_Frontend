@@ -1,5 +1,4 @@
 <script>
-  //Virutas eh eh
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
 
@@ -10,34 +9,30 @@
     // get domain from url
     const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/clubs`); // Reemplaza "URL_DE_LA_API" con la URL real de tu API
+      const response = await fetch(`http://${domain}:3000/club`); // Reemplaza "URL_DE_LA_API" con la URL real de tu API
       if (response.ok) {
         data = await response.json(); // Almacenar los datos recuperados en la variable data
         //mostrar en la tabla con clase table los datos de la variable data
 
         const $ = (selector) => document.querySelector(selector);
         const table = $(".table");
-        data.forEach((club) => {
+        data.data.forEach((club) => {
           table.innerHTML += `<tr>
-              <td>${
-                club.apellido2 != null
-                  ? club.apellido + " " + club.apellido2 + ", " + club.nombre
-                  : club.apellido1 + ", " + club.nombre
-              }</td>
-              <td>${
-                //calcular edad
-                new Date().getFullYear() -
-                new Date(club.fechaNacimiento).getFullYear()
-              }</td>
-              <td>${club.nombre}</td>
-              <td>${club.cif}</td> 
-              <td style="display: flex;flex-direction: column;">
-                  <a href="/federacion/categorias/editar/${
-                    club.id
-                  }" class="btn btn-sm variant-primary">Editar</a>
-                  <a href="/federacion/categorias/borrar/${
-                    club.id
-                  }" class="btn btn-sm variant-danger">Borrar</a>
+            <td>
+              <img
+                src="${club.escudo}"
+                alt="Foto de ${club.nombre}"
+                class="rounded-full w-10 h-10"
+                loading="lazy"
+              />
+              </td>
+            <td>${club.nombre}</td>
+            <td>${club.NIF}</td>
+            <td>${club.email}</td>
+            <td>${club.telefono}</td>
+              <td class="flex flex-col text-right">
+                  <a href="/federacion/clubs/editar/${club.id}" class="btn btn-sm variant-primary">Editar</a>
+                  <a href="/federacion/clubs/borrar/${club.id}" class="btn btn-sm variant-danger">Borrar</a>
                   </td>`;
         });
       } else {
@@ -48,8 +43,8 @@
     }
   });
   const tableSimple = {
-    head: ["Nombre", "CIF", "Email", "Teléfono", "Acciones"], //Pasar datos a la tabla aqui
-    body: tableMapperValues(data, ["name", "symbol", "weight"]),
+    head: ["Escudo", "Nombre", "CIF", "Email", "Teléfono", "Acciones"], //Pasar datos a la tabla aqui
+    body: tableMapperValues(data),
   };
 </script>
 
@@ -71,7 +66,7 @@
       w-80
       "
     >
-      Nuevo categoria
+      Nuevo club
     </a>
   </div>
 </div>

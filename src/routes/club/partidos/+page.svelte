@@ -9,26 +9,37 @@
     // get domain from url
     const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/sancion`);
+      const response = await fetch(`http://${domain}:3000/jugador`);
       if (response.ok) {
         data = await response.json();
         const $ = (selector) => document.querySelector(selector);
         const table = $(".table");
-        data.data.forEach((sancion) => {
+        data.data.forEach((jugador) => {
           table.innerHTML += `<tr>
-            <td>${sancion.arbitro}</td> 
-            <td>${sancion.tipo}</td> 
-            <td>${sancion.destinatario}</td>  
-            <td>${sancion.causa}</td>  
-            <td>${new Date(sancion.fecha).toLocaleDateString()}</td>
-                  <td>${sancion.partido}</td>  
-                  <td>${sancion.estado}</td>  
+            <td><img
+loading="lazy" class="rounded-full" src="${jugador.foto}"></td>
+                  <td>${
+                    jugador.apellido2 != null
+                      ? jugador.apellido +
+                        " " +
+                        jugador.apellido2 +
+                        ", " +
+                        jugador.nombre
+                      : jugador.apellido1 + ", " + jugador.nombre
+                  }</td>
+                  <td>${
+                    //calcular edad
+                    new Date().getFullYear() -
+                    new Date(jugador.fechaNacimiento).getFullYear()
+                  }</td>
+                  <td>${jugador.DNI}</td> 
+                  <td>${jugador.email}</td>  
                   <td style="display: flex;flex-direction: column;">
                       <a href="/federacion/categorias/editar/${
-                        sancion.id
+                        jugador.id
                       }" class="btn btn-sm variant-primary">Editar</a>
                       <a href="/federacion/categorias/borrar/${
-                        sancion.id
+                        jugador.id
                       }" class="btn btn-sm variant-danger">Borrar</a>
                       </td>`;
         });
@@ -40,30 +51,21 @@
     }
   });
   const tableSimple = {
-    head: [
-      "Arbitro",
-      "Destino de sanción",
-      "Sancionado",
-      "Causa",
-      "Fecha Sanción",
-      "Partido",
-      "Estado",
-      "Acciones",
-    ], //Pasar datos a la tabla aqui
+    head: ["Foto", "Nombre", "Fecha de nacimiento", "DNI", "Email", "Acciones"], //Pasar datos a la tabla aqui
     body: tableMapperValues(data),
   };
 </script>
 
 <svelte:head>
-  <title>Gestión de Sanciones - PerformSquad</title>
+  <title>Gestión de Partidos - PerformSquad</title>
 </svelte:head>
 
 <div class="flex flex-col gap-8">
-  <h1 class="text-4xl text-center py-8">Gestión de Sanciones</h1>
+  <h1 class="text-4xl text-center py-8">Gestión de Partidos</h1>
   <Table source={tableSimple} />
   <div class="text-center">
     <a
-      href="/federacion/sancions/crear"
+      href="/federacion/jugadors/crear"
       class="
           btn
           variant-filled-primary
@@ -72,7 +74,7 @@
           w-80
           "
     >
-      Nuevo sancion
+      Nuevo jugador
     </a>
   </div>
 </div>

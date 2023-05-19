@@ -2,11 +2,9 @@
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
 
-  let data = []; // Variable para almacenar los datos de la API
+  let data = [];
 
   onMount(async () => {
-    // vecomo
-    // get domain from url
     const domain = window.location.hostname;
     try {
       const response = await fetch(`http://${domain}:3000/sancion`);
@@ -49,7 +47,7 @@
       "Partido",
       "Estado",
       "Acciones",
-    ], //Pasar datos a la tabla aqui
+    ],
     body: tableMapperValues(data),
   };
 </script>

@@ -1,6 +1,4 @@
 <script>
-  import { onMount } from "svelte";
-
   const handleOnSubmit = (e) => {
     const formData = new FormData(e.target);
     const data = [];
@@ -14,19 +12,14 @@
       acc[key] = value;
       return acc;
     }, {});
-    const res = sendForm(dataObject).then((res) =>
-      res.message === "Arbitro actualizado"
-        ? (window.location.href = "/federacion/arbitros")
-        : alert("Error al actualizar arbitro")
-    );
+    sendForm(dataObject);
   };
 
   const sendForm = async (data) => {
-    const id = window.location.href.split("/").pop();
     const response = await fetch(
-      `http://${window.location.hostname}:3000/arbitro/` + id,
+      `http://${window.location.hostname}:3000/club`,
       {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -34,52 +27,19 @@
       }
     );
     const res = await response.json();
-    return res;
+    if (res.message === "Club creado") {
+      alert("Club creado correctamente");
+      window.location.href = "/federacion/clubs";
+    }
   };
-  onMount(async () => {
-    // const id = //get id as last part of url
-    const id = window.location.href.split("/").pop();
-    const getData = async () => {
-      const response = await fetch(
-        `http://${window.location.hostname}:3000/arbitro/${id}`
-      );
-      const res = await response.json();
-      return res.data;
-    };
-    const printDataToForm = (data) => {
-      const $ = (selector) => document.querySelector(selector);
-      $("#nombre").value = data.nombre;
-      $("#nombre").removeAttribute("readonly");
-      $("#apellido").value = data.apellido;
-      $("#apellido").removeAttribute("readonly");
-      $("#apellido2").value = data.apellido2;
-      $("#apellido2").removeAttribute("readonly");
-      $("#dni").value = data.DNI;
-      $("#dni").removeAttribute("readonly");
-      $("#telefono").value = data.telefono;
-      $("#telefono").removeAttribute("readonly");
-      $("#email").value = data.email;
-      $("#email").removeAttribute("readonly");
-      $("#direccion").value = data.direccion;
-      $("#direccion").removeAttribute("readonly");
-      $("#ciudad").value = data.ciudad;
-      $("#ciudad").removeAttribute("readonly");
-      $("#provincia").value = data.provincia;
-      $("#provincia").removeAttribute("readonly");
-      $("#CP").value = data.CP;
-      $("#CP").removeAttribute("readonly");
-    };
-    const data = await getData();
-    printDataToForm(data);
-  });
 </script>
 
 <svelte:head>
-  <title>Editar Arbitro - PerformSquad</title>
+  <title>Crear Club - PerformSquad</title>
 </svelte:head>
 
 <form on:submit|preventDefault={handleOnSubmit}>
-  <h1 class="text-4xl text-center py-8">Editar Arbitro</h1>
+  <h1 class="text-4xl text-center py-8">Nuevo Club</h1>
 
   <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">
@@ -91,44 +51,23 @@
         placeholder="Nombre"
         id="nombre"
         required
-        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
-      <span>Apellido *</span>
-      <input
-        class="input"
-        type="text"
-        name="apellido"
-        placeholder="Apellido"
-        id="apellido"
-        required
-        readonly
-      />
-    </label>
-    <label class="label text-left py-4 w-full">
-      <span>Segundo Apellido</span>
-      <input
-        class="input"
-        type="text"
-        id="apellido2"
-        name="apellido2"
-        placeholder="Segundo Apellido"
-        readonly
-      />
+      <span>Web *</span>
+      <input class="input" type="url" name="web" placeholder="Web" id="web" />
     </label>
   </div>
   <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">
-      <span>DNI *</span>
+      <span>NIF *</span>
       <input
         class="input"
         type="text"
-        name="DNI"
-        placeholder="DNI"
-        id="dni"
+        name="NIF"
+        placeholder="NIF"
+        id="nif"
         required
-        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
@@ -140,7 +79,6 @@
         id="telefono"
         placeholder="Teléfono"
         required
-        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
@@ -152,22 +90,10 @@
         name="email"
         placeholder="Email"
         required
-        readonly
       />
     </label>
   </div>
   <div class="flex flex-row gap-8 w-full">
-    <label class="label text-left py-4 w-full">
-      <span>Fecha Nacimiento *</span>
-      <input
-        class="input"
-        name="fechaNacimiento"
-        type="date"
-        id="fecha"
-        required
-        readonly
-      />
-    </label>
     <label class="label text-left py-4 w-full">
       <span>Dirección *</span>
       <input
@@ -177,7 +103,6 @@
         placeholder="Ej: Calle Mayor 27"
         id="direccion"
         required
-        readonly
       />
     </label>
   </div>
@@ -191,7 +116,6 @@
         id="ciudad"
         placeholder="Ciudad"
         required
-        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
@@ -203,19 +127,20 @@
         id="provincia"
         placeholder="Provincia"
         required
-        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
       <span>Código Postal *</span>
       <input
         class="input"
-        type="number"
+        type="text"
         name="CP"
         id="CP"
         placeholder="Ej: 50001"
+        max="99999"
+        min="00001"
+        maxlength="5"
         required
-        readonly
       />
     </label>
   </div>

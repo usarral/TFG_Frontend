@@ -6,6 +6,7 @@
   <a class="card card-hover overflow-hidden" href="afiliacion">
     <header>
       <img
+        loading="lazy"
         src="/afiliacion.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
@@ -18,6 +19,7 @@
   </a><a class="card card-hover overflow-hidden" href="login/arbitro">
     <header>
       <img
+        loading="lazy"
         src="/arbitro.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
@@ -30,6 +32,7 @@
   </a><a class="card card-hover overflow-hidden" href="login/club">
     <header>
       <img
+        loading="lazy"
         src="/club.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
@@ -42,6 +45,7 @@
   </a><a class="card card-hover overflow-hidden" href="login/federacion">
     <header>
       <img
+        loading="lazy"
         src="/federation.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"

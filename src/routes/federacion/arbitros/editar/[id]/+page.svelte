@@ -1,30 +1,76 @@
 <script>
   import { onMount } from "svelte";
-  onMount(async () => {
-    // get domain from url
-    const domain = window.location.hostname;
-    try {
-      const response = await fetch(`http://${domain}:3000/arbitro/all`); // Reemplaza "URL_DE_LA_API" con la URL real de tu API
-      if (response.ok) {
-        data = await response.json();
-        const $ = (selector) => document.querySelector(selector);
-        const inpNombre = $("#inpNombre");
-        const inpApellido = $("#inpApellido");
-        const inpApellido2 = $("#inpApellido2");
-        const inpDNI = $("#inpDNI");
-        const inpFechaNacimiento = $("#inpFechaNacimiento");
-        const inpTelefono = $("#inpTelefono");
-        const inpEmail = $("#inpEmail");
-        const inpDireccion = $("#inpDireccion");
-        const inpCiudad = $("#inpCiudad");
-        const inpProvincia = $("#inpProvincia");
-        const inpCP = $("#inpCP");
-      } else {
-        console.error("Error al obtener los datos de la API:", response.status);
-      }
-    } catch (error) {
-      console.error("Error al obtener los datos de la API:", error);
+
+  const handleOnSubmit = (e) => {
+    const formData = new FormData(e.target);
+    const data = [];
+    for (let field of formData) {
+      const [key, value] = field;
+      data.push({ key, value });
     }
+    // Cuando tenemos los datos, data es un array de objetos, cada objeto tiene una key y un value
+    //para enviarlo a la API, tenemos que convertirlo a un objeto con la key y el value
+    const dataObject = data.reduce((acc, { key, value }) => {
+      acc[key] = value;
+      return acc;
+    }, {});
+    const res = sendForm(dataObject).then((res) =>
+      res.message === "Arbitro actualizado"
+        ? (window.location.href = "/federacion/arbitros")
+        : alert("Error al actualizar arbitro")
+    );
+  };
+
+  const sendForm = async (data) => {
+    const id = window.location.href.split("/").pop();
+    const response = await fetch(
+      `http://${window.location.hostname}:3000/arbitro/` + id,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const res = await response.json();
+    return res;
+  };
+  onMount(async () => {
+    // const id = //get id as last part of url
+    const id = window.location.href.split("/").pop();
+    const getData = async () => {
+      const response = await fetch(
+        `http://${window.location.hostname}:3000/arbitro/${id}`
+      );
+      const res = await response.json();
+      return res.data;
+    };
+    const printDataToForm = (data) => {
+      const $ = (selector) => document.querySelector(selector);
+      $("#nombre").value = data.nombre;
+      $("#nombre").removeAttribute("readonly");
+      $("#apellido").value = data.apellido;
+      $("#apellido").removeAttribute("readonly");
+      $("#apellido2").value = data.apellido2;
+      $("#apellido2").removeAttribute("readonly");
+      $("#dni").value = data.DNI;
+      $("#dni").removeAttribute("readonly");
+      $("#telefono").value = data.telefono;
+      $("#telefono").removeAttribute("readonly");
+      $("#email").value = data.email;
+      $("#email").removeAttribute("readonly");
+      $("#direccion").value = data.direccion;
+      $("#direccion").removeAttribute("readonly");
+      $("#ciudad").value = data.ciudad;
+      $("#ciudad").removeAttribute("readonly");
+      $("#provincia").value = data.provincia;
+      $("#provincia").removeAttribute("readonly");
+      $("#CP").value = data.CP;
+      $("#CP").removeAttribute("readonly");
+    };
+    const data = await getData();
+    printDataToForm(data);
   });
 </script>
 
@@ -32,7 +78,7 @@
   <title>Editar Arbitro - PerformSquad</title>
 </svelte:head>
 
-<form action="">
+<form on:submit|preventDefault={handleOnSubmit}>
   <h1 class="text-4xl text-center py-8">Editar Arbitro</h1>
 
   <div class="flex flex-row gap-8 w-full">
@@ -41,9 +87,11 @@
       <input
         class="input"
         type="text"
+        name="nombre"
         placeholder="Nombre"
-        id="inpNombre"
+        id="nombre"
         required
+        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
@@ -51,9 +99,11 @@
       <input
         class="input"
         type="text"
+        name="apellido"
         placeholder="Apellido"
-        id="inpApellido"
+        id="apellido"
         required
+        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
@@ -61,24 +111,36 @@
       <input
         class="input"
         type="text"
+        id="apellido2"
+        name="apellido2"
         placeholder="Segundo Apellido"
-        id="inpApellido2"
+        readonly
       />
     </label>
   </div>
   <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">
       <span>DNI *</span>
-      <input class="input" type="text" placeholder="DNI" id="inpDNI" required />
+      <input
+        class="input"
+        type="text"
+        name="DNI"
+        placeholder="DNI"
+        id="dni"
+        required
+        readonly
+      />
     </label>
     <label class="label text-left py-4 w-full">
       <span>Teléfono *</span>
       <input
         class="input"
-        type="tel"
+        type="text"
+        name="telefono"
+        id="telefono"
         placeholder="Teléfono"
-        id="inpTelefono"
         required
+        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
@@ -86,25 +148,36 @@
       <input
         class="input"
         type="email"
+        id="email"
+        name="email"
         placeholder="Email"
-        id="inpEmail"
         required
+        readonly
       />
     </label>
   </div>
   <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">
       <span>Fecha Nacimiento *</span>
-      <input class="input" type="date" id="inpFechaNacimiento" required />
+      <input
+        class="input"
+        name="fechaNacimiento"
+        type="date"
+        id="fecha"
+        required
+        readonly
+      />
     </label>
     <label class="label text-left py-4 w-full">
       <span>Dirección *</span>
       <input
         class="input"
         type="text"
+        name="direccion"
         placeholder="Ej: Calle Mayor 27"
-        id="inpDireccion"
+        id="direccion"
         required
+        readonly
       />
     </label>
   </div>
@@ -114,9 +187,11 @@
       <input
         class="input"
         type="text"
+        name="ciudad"
+        id="ciudad"
         placeholder="Ciudad"
-        id="inpCiudad"
         required
+        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
@@ -124,9 +199,11 @@
       <input
         class="input"
         type="text"
-        placeholder="Apellido"
-        id="inpProvincia"
+        name="provincia"
+        id="provincia"
+        placeholder="Provincia"
         required
+        readonly
       />
     </label>
     <label class="label text-left py-4 w-full">
@@ -134,17 +211,26 @@
       <input
         class="input"
         type="number"
+        name="CP"
+        id="CP"
         placeholder="Ej: 50001"
-        id="inpCP"
         required
+        readonly
       />
     </label>
   </div>
   <div class="text-center">
-    <input
+    <button
       type="submit"
-      class="btn variant-filled-primary m-4 p-4 w-80"
-      value="Guardar"
-    />
+      class="
+    btn
+    variant-filled-primary
+    m-4
+    p-4
+    w-80
+    "
+    >
+      Guardar
+    </button>
   </div>
 </form>

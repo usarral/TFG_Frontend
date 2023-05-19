@@ -16,15 +16,21 @@
   };
 
   const sendForm = async (data) => {
-    const response = await fetch("http://localhost:3000/arbitro", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `http://${window.location.hostname}:3000/arbitro`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const res = await response.json();
-    console.log(res);
+    if (res.message === "Arbitro creado") {
+      alert("Arbitro creado correctamente");
+      window.location.href = "/federacion/arbitros";
+    }
   };
 </script>
 
@@ -154,10 +160,14 @@
       <span>Código Postal *</span>
       <input
         class="input"
-        type="number"
-        name="cp"
-        id="cp"
+        type="text"
+        name="CP"
+        id="CP"
         placeholder="Ej: 50001"
+        max="99999"
+        min="00001"
+        maxlength="5"
+        required
       />
     </label>
   </div>

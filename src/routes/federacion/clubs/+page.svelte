@@ -5,8 +5,6 @@
   let data = []; // Variable para almacenar los datos de la API
 
   onMount(async () => {
-    // vecomo
-    // get domain from url
     const domain = window.location.hostname;
     try {
       const response = await fetch(`http://${domain}:3000/club`); // Reemplaza "URL_DE_LA_API" con la URL real de tu API

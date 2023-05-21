@@ -35,10 +35,10 @@ loading="lazy" class="rounded-full" src="${jugador.foto}"></td>
                   <td>${jugador.DNI}</td> 
                   <td>${jugador.email}</td>  
                   <td style="display: flex;flex-direction: column;">
-                      <a href="/federacion/categorias/editar/${
+                      <a href="/federacion/jugadores/editar/${
                         jugador.id
                       }" class="btn btn-sm variant-primary">Editar</a>
-                      <a href="/federacion/categorias/borrar/${
+                      <a href="/federacion/jugadores/borrar/${
                         jugador.id
                       }" class="btn btn-sm variant-danger">Borrar</a>
                       </td>`;
@@ -65,7 +65,7 @@ loading="lazy" class="rounded-full" src="${jugador.foto}"></td>
   <Table source={tableSimple} />
   <div class="text-center">
     <a
-      href="/federacion/jugadors/crear"
+      href="/federacion/jugadores/crear"
       class="
           btn
           variant-filled-primary

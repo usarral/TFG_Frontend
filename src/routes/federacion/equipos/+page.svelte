@@ -13,14 +13,13 @@
         const table = $(".table");
         data.data.forEach((element) => {
           table.innerHTML += `<tr>
-            <td><img
-loading="lazy" class="rounded-full" src="${element.escudo}"></td>
+            <td><img loading="lazy" class="rounded-full" src="${element.escudo}"></td>
             <td>${element.nombre}</td>
             <td>${element.email}</td>
             <td>${element.telefono}</td>
             <td>
               <a href="/federacion/equipos/editar/${element.id}" class="btn variant-filled-primary">Editar</a>
-              <a href="/federacion/equipos/eliminar/${element.id}" class="btn variant-filled-danger">Eliminar</a>
+              <a href="/federacion/equipos/borrar/${element.id}" class="btn variant-filled-danger">Eliminar</a>
             </td>
             </td>`;
         });

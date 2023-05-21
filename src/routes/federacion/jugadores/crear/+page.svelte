@@ -8,8 +8,7 @@
       const [key, value] = field;
       data.push({ key, value });
     }
-    // Cuando tenemos los datos, data es un array de objetos, cada objeto tiene una key y un value
-    //para enviarlo a la API, tenemos que convertirlo a un objeto con la key y el value
+
     const dataObject = data.reduce((acc, { key, value }) => {
       acc[key] = value;
       return acc;
@@ -47,34 +46,28 @@
         select.appendChild(option);
       });
     };
-    const getResponsables = async () => {
+    const getEquipos = async () => {
       const response = await fetch(
-        `http://${window.location.hostname}:3000/staff`
+        `http://${window.location.hostname}:3000/equipo`
       );
 
       const res = await response.json();
-      const responsables = res.data;
-      const select = document.getElementById("responsable");
-      responsables.forEach((responsable) => {
+      const equipos = res.data;
+      const select = document.getElementById("equipo");
+      equipos.forEach((equipo) => {
         const option = document.createElement("option");
-        option.value = responsable.id;
-        option.text =
-          responsable.nombre +
-          " " +
-          responsable.apellido +
-          " (" +
-          responsable.DNI +
-          ")";
+        option.value = equipo.id;
+        option.text = equipo.nombre;
         select.appendChild(option);
       });
     };
     getClubs();
     getCategorias();
-    getResponsables();
+    getEquipos();
   });
   const sendForm = async (data) => {
     const response = await fetch(
-      `http://${window.location.hostname}:3000/equipo`,
+      `http://${window.location.hostname}:3000/jugador`,
       {
         method: "POST",
         headers: {
@@ -84,19 +77,19 @@
       }
     );
     const res = await response.json();
-    if (res.message === "Equipo creado") {
-      alert("Equipo creado correctamente");
-      window.location.href = "/federacion/equipos";
+    if (res.message === "Jugador creado") {
+      alert("Jugador creado correctamente");
+      window.location.href = "/federacion/jugadores";
     }
   };
 </script>
 
 <svelte:head>
-  <title>Crear Equipo - PerformSquad</title>
+  <title>Crear Jugador - PerformSquad</title>
 </svelte:head>
 
 <form on:submit|preventDefault={handleOnSubmit}>
-  <h1 class="text-4xl text-center py-8">Nuevo Equipo</h1>
+  <h1 class="text-4xl text-center py-8">Nuevo Jugador</h1>
 
   <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">
@@ -111,23 +104,48 @@
       />
     </label>
     <label class="label text-left py-4 w-full">
-      <span>Club *</span>
-      <select class="input" name="club" id="club" required>
-        <option value="" disabled selected>Selecciona un club</option>
-      </select>
+      <span>Apellido *</span>
+      <input
+        class="input"
+        type="text"
+        name="apellido"
+        placeholder="Apellido"
+        id="apellido"
+        required
+      />
+    </label>
+    <label class="label text-left py-4 w-full">
+      <span>Segundo apellido</span>
+      <input
+        class="input"
+        type="text"
+        name="apellido2"
+        placeholder="Segundo Apellido"
+        id="apellido2"
+      />
     </label>
   </div>
   <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">
-      <span>Categoria *</span>
-      <select class="input" name="categoria" id="categoria" required>
-        <option value="" disabled selected>Selecciona una categoría</option>
-      </select>
-    </label><label class="label text-left py-4 w-full">
-      <span>Responsable *</span>
-      <select class="input" name="responsable" id="responsable" required>
-        <option value="" disabled selected>Selecciona un responsable</option>
-      </select>
+      <span>DNI *</span>
+      <input
+        class="input"
+        type="text"
+        name="dni"
+        placeholder="DNI"
+        id="dni"
+        required
+      />
+    </label>
+    <label class="label text-left py-4 w-full">
+      <span>Fecha de nacimiento *</span>
+      <input
+        class="input"
+        type="date"
+        name="fechaNacimiento"
+        id="fechaNacimiento"
+        required
+      />
     </label>
   </div>
   <div class="flex flex-row gap-8 w-full">
@@ -152,6 +170,25 @@
         placeholder="Email"
         required
       />
+    </label>
+  </div>
+  <div class="flex flex-row gap-8 w-full">
+    <label class="label text-left py-4 w-full">
+      <span>Club *</span>
+      <select class="input" name="club" id="club" required>
+        <option value="" disabled selected>Selecciona un club</option>
+      </select>
+    </label>
+    <label class="label text-left py-4 w-full">
+      <span>Categoria *</span>
+      <select class="input" name="categoria" id="categoria" required>
+        <option value="" disabled selected>Selecciona una categoría</option>
+      </select>
+    </label><label class="label text-left py-4 w-full">
+      <span>Equipo *</span>
+      <select class="input" name="equipo" id="equipo" required>
+        <option value="" disabled selected>Selecciona un equipo</option>
+      </select>
     </label>
   </div>
   <div class="flex flex-row gap-8 w-full">

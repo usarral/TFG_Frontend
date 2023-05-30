@@ -1,7 +1,8 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
-
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
   let data = [];
   onMount(async () => {
     const domain = window.location.hostname;

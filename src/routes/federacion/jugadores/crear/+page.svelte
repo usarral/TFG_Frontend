@@ -1,5 +1,7 @@
 <script>
   import { onMount } from "svelte";
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
 
   const handleOnSubmit = (e) => {
     const formData = new FormData(e.target);
@@ -131,9 +133,9 @@
       <input
         class="input"
         type="text"
-        name="dni"
+        name="DNI"
         placeholder="DNI"
-        id="dni"
+        id="DNI"
         required
       />
     </label>

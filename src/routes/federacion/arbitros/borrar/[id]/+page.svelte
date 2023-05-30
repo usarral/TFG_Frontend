@@ -1,6 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import { Toast } from "@skeletonlabs/skeleton";
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
   onMount(async () => {
     const $ = (selector) => document.querySelector(selector);
     const deleteButton = $("#delete");

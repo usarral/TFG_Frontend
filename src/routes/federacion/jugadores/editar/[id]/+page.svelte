@@ -1,5 +1,7 @@
 <script>
   import { onMount } from "svelte";
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
 
   const handleOnSubmit = (e) => {
     const formData = new FormData(e.target);
@@ -94,6 +96,8 @@
     };
     const printDataToForm = (data) => {
       const $ = (selector) => document.querySelector(selector);
+      console.log(data);
+
       $("#nombre").value = data.nombre;
       $("#nombre").removeAttribute("readonly");
       $("#apellido").value = data.apellido;
@@ -120,10 +124,10 @@
       $("#CP").removeAttribute("readonly");
       $("#club").value = data.club;
       $("#categoria").value = data.categoria;
-      $("#responsable").value = data.responsable;
+      $("#equipo").value = data.equipo;
       $("#club").removeAttribute("readonly");
       $("#categoria").removeAttribute("readonly");
-      $("#responsable").removeAttribute("readonly");
+      $("#equipo").removeAttribute("readonly");
     };
     const data = await getData();
     printDataToForm(data);
@@ -133,8 +137,9 @@
 <svelte:head>
   <title>Editar Jugador - PerformSquad</title>
 </svelte:head>
+
 <form on:submit|preventDefault={handleOnSubmit}>
-  <h1 class="text-4xl text-center py-8">Editar Jugador</h1>
+  <h1 class="text-4xl text-center py-8">Nuevo Jugador</h1>
 
   <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">

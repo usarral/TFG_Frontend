@@ -1,9 +1,10 @@
 import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig } from 'vite'
-import mkcert from 'vite-plugin-mkcert'
+import * as dotenv from 'dotenv'
+dotenv.config({ path: '../.env' })
 
 export default defineConfig({
-  plugins: [sveltekit(), mkcert()],
+  plugins: [sveltekit()],
   resolve: {
     alias: {
       $components: '/src/lib/components',
@@ -11,8 +12,7 @@ export default defineConfig({
     }
   },
   server: {
-    port: 443,
-    strictPort: false,
-    https: true
+    port: 5173,
+    strictPort: false
   }
 })

@@ -2,7 +2,7 @@
   import { AppBar } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
   onMount(() => {
-    const domain = window.location.hostname;
+    const domain = window.location.host;
     const $ = (selector) => document.querySelector(selector);
     const aHome = $("#aHome");
     aHome.href = `http://${domain}/`;

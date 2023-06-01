@@ -1,6 +1,8 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
 
   let data = []; // Variable para almacenar los datos de la API
 
@@ -9,15 +11,19 @@
     // get domain from url
     const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/jugador`);
+      const response = await fetch(`http://localhost:3000/jugador`);
       if (response.ok) {
         data = await response.json();
-        const $ = (selector) => document.querySelector(selector);
-        const table = $(".table");
-        data.data.forEach((jugador) => {
-          table.innerHTML += `<tr>
-            <td><img
-loading="lazy" class="rounded-full" src="${jugador.foto}"></td>
+        if (data.message == "No hay jugadores") {
+          return;
+        } else {
+          const $ = (selector) => document.querySelector(selector);
+          const table = $(".table");
+          data.data.forEach((jugador) => {
+            table.innerHTML += `<tr>
+            <td><img loading="lazy" class="rounded-full" src="${
+              jugador.foto
+            }"></td>
                   <td>${
                     jugador.apellido2 != null
                       ? jugador.apellido +
@@ -42,7 +48,8 @@ loading="lazy" class="rounded-full" src="${jugador.foto}"></td>
                         jugador.id
                       }" class="btn btn-sm variant-danger">Borrar</a>
                       </td>`;
-        });
+          });
+        }
       } else {
         console.error("Error al obtener los datos de la API:", response.status);
       }

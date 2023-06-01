@@ -6,7 +6,7 @@
   // Most of your app wide CSS should be put in this file
   import "../app.postcss";
   import { AppShell } from "@skeletonlabs/skeleton";
-  import TopNavbar from "$lib/components/TopNavbar.svelte";
+  import TopNavbar from "$components/TopNavbar.svelte";
 </script>
 
 <!-- App Shell -->
@@ -14,6 +14,7 @@
   <svelte:fragment slot="header">
     <!-- App Bar -->
     <TopNavbar />
+    <span id="browser-fingerprint" />
     <!-- Toasts -->
   </svelte:fragment>
   <!-- Page Route Content -->

@@ -1,5 +1,7 @@
 <script>
   import { onMount } from "svelte";
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
 
   const handleOnSubmit = (e) => {
     const formData = new FormData(e.target);
@@ -23,16 +25,13 @@
 
   const sendForm = async (data) => {
     const id = window.location.href.split("/").pop();
-    const response = await fetch(
-      `http://${window.location.hostname}:3000/arbitro/` + id,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const response = await fetch(`http://localhost:3000/arbitro/` + id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
     const res = await response.json();
     return res;
   };
@@ -40,9 +39,7 @@
     // const id = //get id as last part of url
     const id = window.location.href.split("/").pop();
     const getData = async () => {
-      const response = await fetch(
-        `http://${window.location.hostname}:3000/arbitro/${id}`
-      );
+      const response = await fetch(`http://localhost:3000/arbitro/${id}`);
       const res = await response.json();
       return res.data;
     };

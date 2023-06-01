@@ -1,6 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import { Toast } from "@skeletonlabs/skeleton";
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
   onMount(async () => {
     const $ = (selector) => document.querySelector(selector);
     const deleteButton = $("#delete");
@@ -8,14 +10,12 @@
       const domain = window.location.hostname;
       const id = window.location.pathname.split("/").pop();
       try {
-        const response = await fetch(`http://${domain}:3000/club/${id}`, {
+        const response = await fetch(`http://localhost:3000/club/${id}`, {
           method: "DELETE",
         });
         if (response.ok) {
           alert("Club borrado correctamente");
-          setTimeout(() => {
-            window.location.href = "/federacion/clubs";
-          }, 1000);
+          window.location.href = "/federacion/clubs";
         } else {
           console.error(
             "Error al obtener los datos de la API:",

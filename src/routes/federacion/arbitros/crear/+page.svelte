@@ -1,4 +1,6 @@
 <script>
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
   const handleOnSubmit = (e) => {
     const formData = new FormData(e.target);
     const data = [];

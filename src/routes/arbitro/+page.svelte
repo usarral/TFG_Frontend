@@ -1,10 +1,18 @@
+<script>
+  import { onMount } from "svelte";
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
+
+  onMount(() => {});
+</script>
+
 <svelte:head>
   <title>Inicio Arbitro - PerformSquad</title>
 </svelte:head>
 
 <h1 class="text-4xl text-center py-8">Inicio Arbitros</h1>
 <div class="w-full text-token grid grid-cols-2 md:grid-cols-3 gap-8">
-  <a class="card card-hover overflow-hidden" href="equipos">
+  <a class="card card-hover overflow-hidden" href="/arbitro/equipos">
     <header>
       <img
         loading="lazy"
@@ -18,11 +26,11 @@
     </div>
     <hr class="opacity-50" />
   </a>
-  <a class="card card-hover overflow-hidden" href="jugadores">
+  <a class="card card-hover overflow-hidden" href="arbitro/jugadores">
     <header>
       <img
         loading="lazy"
-        src="/equipos.jpg"
+        src="/jugadores.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
       />
@@ -32,11 +40,11 @@
     </div>
     <hr class="opacity-50" />
   </a>
-  <a class="card card-hover overflow-hidden" href="partidos">
+  <a class="card card-hover overflow-hidden" href="arbitro/partidos">
     <header>
       <img
         loading="lazy"
-        src="/equipos.jpg"
+        src="/partidos.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
       />
@@ -46,11 +54,11 @@
     </div>
     <hr class="opacity-50" />
   </a>
-  <a class="card card-hover overflow-hidden" href="Staff">
+  <a class="card card-hover overflow-hidden" href="arbitro/staff">
     <header>
       <img
         loading="lazy"
-        src="/equipos.jpg"
+        src="/staff.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
       />
@@ -60,7 +68,7 @@
     </div>
     <hr class="opacity-50" />
   </a>
-  <a class="card card-hover overflow-hidden" href="sanciones">
+  <a class="card card-hover overflow-hidden" href="arbitro/sanciones">
     <header>
       <img
         loading="lazy"
@@ -71,6 +79,20 @@
     </header>
     <div class="p-4 space-y-4 text-center">
       <h3 class="h3" data-toc-ignore>Sanciones</h3>
+    </div>
+    <hr class="opacity-50" />
+  </a>
+  <a class="card card-hover overflow-hidden" href="arbitro/user">
+    <header>
+      <img
+        loading="lazy"
+        src="/user.jpg"
+        class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
+        alt="Post"
+      />
+    </header>
+    <div class="p-4 space-y-4 text-center">
+      <h3 class="h3" data-toc-ignore>Mi Usuario</h3>
     </div>
     <hr class="opacity-50" />
   </a>

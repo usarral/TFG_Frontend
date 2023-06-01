@@ -1,43 +1,81 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
   let data = [];
 
   onMount(async () => {
+    const getEquipo = async (id) => {
+      const domain = window.location.hostname;
+      try {
+        const response = await fetch(`http://${domain}:3000/equipo/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          return data.data.nombre;
+        } else {
+          console.error(
+            "Error al obtener los datos de la API:",
+            response.status
+          );
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos de la API:", error);
+      }
+    };
+    const getPabellon = async (id) => {
+      const domain = window.location.hostname;
+      try {
+        const response = await fetch(`http://${domain}:3000/pabellon/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          return data.data.nombre;
+        } else {
+          console.error(
+            "Error al obtener los datos de la API:",
+            response.status
+          );
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos de la API:", error);
+      }
+    };
     const domain = window.location.hostname;
     try {
       const response = await fetch(`http://${domain}:3000/partido`);
-      if (response.ok) {
+      if (response.status == 204) {
+        return;
+      } else if (response.ok) {
         data = await response.json();
         const $ = (selector) => document.querySelector(selector);
         const table = $(".table");
-        data.forEach((partido) => {
+
+        data.data.forEach(async (partido) => {
+          const equipoLocal = await getEquipo(partido.equipoLocal);
+          const equipoVisitante = await getEquipo(partido.equipoVisitante);
+          const pabellon = await getPabellon(partido.pabellon);
           table.innerHTML += `<tr>
-                  <td>${
-                    partido.apellido2 != null
-                      ? partido.apellido +
-                        " " +
-                        partido.apellido2 +
-                        ", " +
-                        partido.nombre
-                      : partido.apellido1 + ", " + partido.nombre
-                  }</td>
-                  <td>${
-                    new Date().getFullYear() -
-                    new Date(partido.fechaNacimiento).getFullYear()
-                  }</td>
-                  <td>${partido.hora}</td>
-                  <td>${partido.eq_local}</td>
-                  <td>${partido.eq_visitante}</td> 
-                  <td>${partido.pabellon}</td>  
-                  <td style="display: flex;flex-direction: column;">
-                      <a href="/federacion/categorias/editar/${
-                        partido.id
-                      }" class="btn btn-sm variant-primary">Editar</a>
-                      <a href="/federacion/categorias/borrar/${
-                        partido.id
-                      }" class="btn btn-sm variant-danger">Borrar</a>
-                      </td>`;
+            <td>${new Date(partido.fecha).toLocaleDateString()} 
+              ${
+                new Date(partido.fecha).getHours() < 10
+                  ? "0" + new Date(partido.fecha).getHours()
+                  : new Date(partido.fecha).getHours()
+              }:${
+            new Date(partido.fecha).getMinutes() < 10
+              ? "0" + new Date(partido.fecha).getMinutes()
+              : new Date(partido.fecha).getMinutes()
+          }</td>
+            <td>${equipoLocal}</td>
+            <td>${equipoVisitante}</td>
+            <td>${pabellon}</td>
+            <td style="display: flex;flex-direction: column;">
+                <a href="/federacion/partidos/editar/${
+                  partido.id
+                }" class="btn btn-sm variant-primary">Editar</a>
+                <a href="/federacion/partidos/borrar/${
+                  partido.id
+                }" class="btn btn-sm variant-danger">Borrar</a>
+                </td>`;
         });
       } else {
         console.error("Error al obtener los datos de la API:", response.status);
@@ -48,7 +86,7 @@
   });
   const tableSimple = {
     head: [
-      "Hora del encuentro",
+      "Fecha del encuentro",
       "Equipo local",
       "Equipo visitante",
       "Pabellón",

@@ -12,6 +12,11 @@
     <input class="input" type="password" placeholder="Contraseña..." />
   </label>
   <div class="p-6"><a href="recoverpassword">¿Contraseña olvidada?</a></div>
-  <a href="/federacion">Federación dashboard</a>
-  <button class="button is-primary">Login</button>
+  <button
+    class="btn
+    variant-filled-primary
+    m-4
+    p-4
+    w-80">Login</button
+  >
 </div>

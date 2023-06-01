@@ -10,14 +10,13 @@
       const domain = window.location.hostname;
       const id = window.location.pathname.split("/").pop();
       try {
-        const response = await fetch(`http://${domain}:3000/jugador/${id}`, {
+        const response = await fetch(`http://localhost:3000/jugador/${id}`, {
           method: "DELETE",
         });
         if (response.ok) {
           alert("Jugador borrado correctamente");
-          setTimeout(() => {
-            window.location.href = "/federacion/jugadores";
-          }, 5000);
+
+          window.location.href = "/federacion/jugadores";
         } else {
           console.error(
             "Error al obtener los datos de la API:",

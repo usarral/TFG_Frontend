@@ -1,7 +1,8 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
-
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
   let data = []; // Variable para almacenar los datos de la API
 
   onMount(async () => {
@@ -9,14 +10,18 @@
     // get domain from url
     const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/sancion`);
+      const response = await fetch(`http://localhost:3000/sancion`);
       if (response.ok) {
+        if (response.status === 204) {
+          return;
+        }
         data = await response.json();
-        const $ = (selector) => document.querySelector(selector);
-        const table = $(".table");
-        data.data.forEach((sancion) => {
-          table.innerHTML += `<tr>
-            <td>${sancion.arbitro}</td> 
+
+        {
+          const $ = (selector) => document.querySelector(selector);
+          const table = $(".table");
+          data.data.forEach((sancion) => {
+            table.innerHTML += `<tr>
             <td>${sancion.tipo}</td> 
             <td>${sancion.destinatario}</td>  
             <td>${sancion.causa}</td>  
@@ -24,14 +29,15 @@
                   <td>${sancion.partido}</td>  
                   <td>${sancion.estado}</td>  
                   <td style="display: flex;flex-direction: column;">
-                      <a href="/federacion/categorias/editar/${
+                      <a href="/federacion/sanciones/editar/${
                         sancion.id
                       }" class="btn btn-sm variant-primary">Editar</a>
-                      <a href="/federacion/categorias/borrar/${
+                      <a href="/federacion/sanciones/borrar/${
                         sancion.id
                       }" class="btn btn-sm variant-danger">Borrar</a>
                       </td>`;
-        });
+          });
+        }
       } else {
         console.error("Error al obtener los datos de la API:", response.status);
       }
@@ -41,7 +47,6 @@
   });
   const tableSimple = {
     head: [
-      "Arbitro",
       "Destino de sanción",
       "Sancionado",
       "Causa",
@@ -63,7 +68,7 @@
   <Table source={tableSimple} />
   <div class="text-center">
     <a
-      href="/federacion/sancions/crear"
+      href="/federacion/sanciones/crear"
       class="
           btn
           variant-filled-primary

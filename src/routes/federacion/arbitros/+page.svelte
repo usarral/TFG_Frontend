@@ -8,7 +8,9 @@
 
   onMount(async () => {
     try {
-      const response = await fetch(`http://localhost:3000/arbitro`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/arbitro`
+      );
       if (response.ok) {
         data = await response.json();
 

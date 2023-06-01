@@ -1,9 +1,8 @@
 import { getCurrentBrowserFingerPrint } from '@rajesh896/broprint.js'
 import { onMount } from 'svelte'
-
 export async function checkAuth () {
   onMount(async () => {
-    const response = await fetch(`http://localhost:3000/`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

@@ -10,7 +10,9 @@
     // get domain from url
     const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://localhost:3000/sancion`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/sancion`
+      );
       if (response.ok) {
         if (response.status === 204) {
           return;

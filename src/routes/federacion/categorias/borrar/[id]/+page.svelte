@@ -10,9 +10,12 @@
       const domain = window.location.hostname;
       const id = window.location.pathname.split("/").pop();
       try {
-        const response = await fetch(`http://localhost:3000/categoria/${id}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/categoria/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
         if (response.ok) {
           alert("Categoria borrado correctamente");
           window.location.href = "/federacion/categorias";

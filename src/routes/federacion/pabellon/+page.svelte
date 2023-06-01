@@ -8,7 +8,9 @@
 
   onMount(async () => {
     try {
-      const response = await fetch(`http://localhost:3000/pabellon`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/pabellon`
+      );
       if (response.ok) {
         data = await response.json();
         const $ = (selector) => document.querySelector(selector);

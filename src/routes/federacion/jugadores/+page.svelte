@@ -11,7 +11,9 @@
     // get domain from url
     const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://localhost:3000/jugador`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/jugador`
+      );
       if (response.ok) {
         data = await response.json();
         if (data.message == "No hay jugadores") {

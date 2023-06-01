@@ -37,7 +37,7 @@
     </div>
     <hr class="opacity-50" />
   </a>
-  <a class="card card-hover overflow-hidden" href="club/miclub">
+  <!-- <a class="card card-hover overflow-hidden" href="club/miclub">
     <header>
       <img
         loading="lazy"
@@ -50,7 +50,7 @@
       <h3 class="h3" data-toc-ignore>Mi club</h3>
     </div>
     <hr class="opacity-50" />
-  </a>
+  </a> -->
   <a class="card card-hover overflow-hidden" href="club/partidos">
     <header>
       <img

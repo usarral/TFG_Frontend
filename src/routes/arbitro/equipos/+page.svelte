@@ -20,9 +20,7 @@
             <td>${element.nombre}</td>
             <td>${element.email}</td>
             <td>${element.telefono}</td>
-            <td>
-              <a href="/federacion/equipos/ver/${element.id}" class="btn variant-filled-primary">Ver</a>
-            </td>
+            
             </td>`;
         });
       } else {
@@ -33,7 +31,7 @@
     }
   });
   const tableSimple = {
-    head: ["Foto", "Nombre", "Email", "Teléfono", "Acciones"], //Pasar datos a la tabla aqui
+    head: ["Foto", "Nombre", "Email", "Teléfono"], //Pasar datos a la tabla aqui
     body: tableMapperValues(data),
   };
 </script>

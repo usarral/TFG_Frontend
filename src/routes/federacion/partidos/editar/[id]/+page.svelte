@@ -127,7 +127,7 @@
     };
     const getArbitros = async () => {
       const response = await fetch(
-        `http://${window.location.hostname}:3000/staff`
+        `http://${window.location.hostname}:3000/arbitro`
       );
 
       const res = await response.json();
@@ -147,18 +147,21 @@
         `http://${window.location.hostname}:3000/partido/${id}`
       );
       const res = await response.json();
+
       return res.data;
     };
     const printDataToForm = (data) => {
+      console.log(data);
       const $ = (selector) => document.querySelector(selector);
+      $("#arbitro").value = data.arbitro;
       $("#fecha").value = new Date(data.fecha).toISOString().slice(0, -8);
       $("#categoria").value = data.categoria;
       $("#pabellon").value = data.pabellon;
-      $("#arbitro").value = data.arbitro;
       $("#equipoLocal").value = data.equipolocal;
       $("#equipoVisitante").value = data.equipovisitante;
     };
     const data = await getData();
+
     getCategorias();
     getEquipos();
     equiposSelector();

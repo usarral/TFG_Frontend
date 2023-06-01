@@ -127,7 +127,7 @@
 
 <div class="card mt-8 p-8">
   <h2 class="text-2xl text-center py-2">Formulario de Contacto</h2>
-  <form action="/sendmail" method="POST" class=" w-full">
+  <form action="https://formspree.io/f/mqkovkyq" method="POST" class=" w-full">
     <label for="name">
       <span>Nombre</span>
       <input type="text" name="name" class="input" />

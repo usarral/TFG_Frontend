@@ -136,7 +136,7 @@
     </div>
     <hr class="opacity-50" />
   </a> -->
-  <a class="card card-hover overflow-hidden" href="federacion/usuario">
+  <!-- <a class="card card-hover overflow-hidden" href="federacion/usuario">
     <header>
       <img
         loading="lazy"
@@ -149,7 +149,7 @@
       <h3 class="h3" data-toc-ignore>Usuario</h3>
     </div>
     <hr class="opacity-50" />
-  </a>
+  </a> -->
 </div>
 
 <style></style>

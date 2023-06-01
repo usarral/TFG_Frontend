@@ -1,27 +1,46 @@
 <script>
   import { onMount } from "svelte";
+  import { getCurrentBrowserFingerPrint } from "@rajesh896/broprint.js";
+
+  onMount(async () => {
+    const fingerprint = await getCurrentBrowserFingerPrint();
+    const $ = (selector) => document.querySelector(selector);
+    $("#browser-fingerprint").setAttribute("data-value", fingerprint);
+  });
   const handleOnSubmit = (e) => {
     const formData = new FormData(e.target);
     const data = [];
     for (let field of formData) {
       const [key, value] = field;
+
       data.push({ key, value });
     }
     const dataObject = data.reduce((acc, { key, value }) => {
       acc[key] = value;
       return acc;
     }, {});
-    sendForm(dataObject).then((res) =>
-      res.message === "Arbitro actualizado"
-        ? (window.location.href = "/federacion/arbitros")
-        : alert("Error al actualizar arbitro")
-    );
-  };
+    const $ = (selector) => document.querySelector(selector);
+    const fingerprint = $("#browser-fingerprint").getAttribute("data-value");
 
+    dataObject.fingerprint = fingerprint;
+    dataObject.page = "arbitro";
+
+    const res = sendForm(dataObject);
+    res.then((res) => {
+      console.table(res);
+      if (res.message === "Usuario logeado correctamente") {
+        let token = res.data.token;
+        let fingerprint = res.data.fingerprint;
+        document.cookie = `token=${token}; max-age=172800`;
+        window.location.href = "/arbitro";
+      } else {
+        alert("Error al iniciar sesión");
+      }
+    });
+  };
   const sendForm = async (data) => {
-    const id = window.location.href.split("/").pop();
     const response = await fetch(
-      `http://${window.location.hostname}:3000/login/`,
+      `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
       {
         method: "POST",
         headers: {
@@ -31,31 +50,36 @@
       }
     );
     const res = await response.json();
+
     return res;
   };
-  onMount(async () => {});
 </script>
 
 <svelte:head>
   <title>Login de Arbitros</title>
 </svelte:head>
-<form class="text-center">
+<form class="text-center" on:submit|preventDefault={handleOnSubmit}>
   <h1 class="text-6xl text-center p-10">Login de Árbitros</h1>
   <label class="label text-left py-4">
     <span>DNI</span>
-    <input class="input" type="text" placeholder="DNI" />
+    <input class="input" type="text" placeholder="DNI" name="DNI" />
   </label>
   <label class="label text-left py-4">
     <span>Contraseña</span>
-    <input class="input" type="password" placeholder="Contraseña..." />
+    <input
+      class="input"
+      type="password"
+      placeholder="Contraseña..."
+      name="password"
+    />
   </label>
-  <input type="hidden" name="fingerprint" />
   <div class="p-6"><a href="recoverpassword">¿Contraseña olvidada?</a></div>
   <button
     class="btn
     variant-filled-primary
     m-4
     p-4
-    w-80">Login</button
+    w-80"
+    type="submit">Login</button
   >
 </form>

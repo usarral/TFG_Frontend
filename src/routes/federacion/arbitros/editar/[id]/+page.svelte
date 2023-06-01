@@ -56,6 +56,10 @@
       $("#apellido").removeAttribute("readonly");
       $("#apellido2").value = data.apellido2;
       $("#apellido2").removeAttribute("readonly");
+      $("#fecha").value = new Date(data.fechaNacimiento)
+        .toISOString()
+        .split("T")[0];
+      $("#fecha").removeAttribute("readonly");
       $("#dni").value = data.DNI;
       $("#dni").removeAttribute("readonly");
       $("#telefono").value = data.telefono;

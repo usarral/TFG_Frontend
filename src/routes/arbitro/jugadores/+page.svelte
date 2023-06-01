@@ -7,6 +7,9 @@
   let data = []; // Variable para almacenar los datos de la API
 
   onMount(async () => {
+    // vecomo
+    // get domain from url
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/jugador`
@@ -39,14 +42,7 @@
                   }</td>
                   <td>${jugador.DNI}</td> 
                   <td>${jugador.email}</td>  
-                  <td style="display: flex;flex-direction: column;">
-                      <a href="/federacion/jugadores/editar/${
-                        jugador.id
-                      }" class="btn btn-sm variant-primary">Editar</a>
-                      <a href="/federacion/jugadores/borrar/${
-                        jugador.id
-                      }" class="btn btn-sm variant-danger">Borrar</a>
-                      </td>`;
+                  </tr>`;
           });
         }
       } else {
@@ -57,7 +53,7 @@
     }
   });
   const tableSimple = {
-    head: ["Foto", "Nombre", "Fecha de nacimiento", "DNI", "Email", "Acciones"], //Pasar datos a la tabla aqui
+    head: ["Foto", "Nombre", "Fecha de nacimiento", "DNI", "Email"], //Pasar datos a la tabla aqui
     body: tableMapperValues(data),
   };
 </script>
@@ -68,28 +64,5 @@
 
 <div class="flex flex-col gap-8">
   <h1 class="text-4xl text-center py-8">Gestión de jugadores</h1>
-  <div class="flex flex-row justify-center">
-    <input
-      type="text"
-      class="form-control input w-80"
-      placeholder="Buscar jugador"
-    />
-    <button class="btn variant-filled-primary">Buscar</button>
-  </div>
-
   <Table source={tableSimple} />
-  <div class="text-center">
-    <a
-      href="/federacion/jugadores/crear"
-      class="
-          btn
-          variant-filled-primary
-          m-4
-          p-4
-          w-80
-          "
-    >
-      Nuevo jugador
-    </a>
-  </div>
 </div>

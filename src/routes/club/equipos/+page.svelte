@@ -1,13 +1,17 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
 
   let data = [];
 
   onMount(async () => {
     const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/equipo`);
+      const response = await fetch(
+        `http://${domain}:3000/equipo?club=${localStorage.getItem("club")}`
+      );
       if (response.ok) {
         data = await response.json();
         const $ = (selector) => document.querySelector(selector);

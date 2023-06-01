@@ -1,3 +1,8 @@
+<script>
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
+</script>
+
 <svelte:head>
   <title>Inicio Club - PerformSquad</title>
 </svelte:head>
@@ -22,7 +27,7 @@
     <header>
       <img
         loading="lazy"
-        src="/equipos.jpg"
+        src="/jugadores.jpg"
         class="bg-black/33 w-full aspect-[16/9] filter grayscale hover:grayscale-0 transition duration-500 ease-in-out hover:filter-none"
         alt="Post"
       />

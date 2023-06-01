@@ -1,7 +1,8 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
-
+  import { checkAuth } from "$functions/checkAuth";
+  checkAuth();
   let data = [];
 
   onMount(async () => {
@@ -17,6 +18,13 @@
         const $ = (selector) => document.querySelector(selector);
         const table = $(".table");
         data.data.forEach((row) => {
+          if (row.genero == "M") {
+            row.genero = "Masculino";
+          } else if (row.genero == "F") {
+            row.genero = "Femenino";
+          } else {
+            row.genero = "Mixto";
+          }
           table.innerHTML += `<tr>
             <td>${row.nombre}</td>
             <td>${row.minEdad}</td>

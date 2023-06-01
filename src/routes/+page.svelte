@@ -8,8 +8,12 @@
           `${import.meta.env.VITE_BACKEND_URL}/partido`
         );
         if (response.ok) {
-          const data = await response.json();
-          return data.data;
+          if (response.status === 204) {
+            return [];
+          } else {
+            const data = await response.json();
+            return data.data;
+          }
         } else {
           console.error(
             "Error al obtener los datos de la API:",
@@ -26,8 +30,12 @@
           `${import.meta.env.VITE_BACKEND_URL}/equipo`
         );
         if (response.ok) {
-          const data = await response.json();
-          return data.data;
+          if (response.status === 204) {
+            return [];
+          } else {
+            const data = await response.json();
+            return data.data;
+          }
         } else {
           console.error(
             "Error al obtener los datos de la API:",
@@ -43,41 +51,57 @@
     const equipos = await getEquipos();
 
     const $ = (selector) => document.querySelector(selector);
+
+    const nombre = $("#nombreUser");
+    const guest = $("#guest");
+    const logged = $("#logged");
     const local = $("#local");
     const visitante = $("#visitante");
     const pendiente = $("#pendiente");
     const jugados = $("#jugados");
+    if (localStorage.getItem("nombre")) {
+      nombre.textContent = localStorage.getItem("nombre");
+      guest.classList.add("hidden");
+      logged.classList.remove("hidden");
+    } else {
+      guest.classList.remove("hidden");
+      logged.classList.add("hidden");
+    }
 
-    let proximosPartidos = partidos.filter((partido) => {
-      const fecha = new Date(partido.fecha);
-      return fecha > new Date();
-    });
+    if (partidos.length > 0) {
+      let partidosJugados = partidos.filter((partido) => {
+        const fecha = new Date(partido.fecha);
+        return fecha < new Date();
+      });
+      jugados.textContent = partidosJugados.length;
+      let proximosPartidos = partidos.filter((partido) => {
+        const fecha = new Date(partido.fecha);
+        return fecha > new Date();
+      });
+      if (proximosPartidos.length === 0) {
+        return;
+      }
 
-    let partidosJugados = partidos.filter((partido) => {
-      const fecha = new Date(partido.fecha);
-      return fecha < new Date();
-    });
+      pendiente.textContent = proximosPartidos.length;
 
-    pendiente.textContent = proximosPartidos.length;
-    jugados.textContent = partidosJugados.length;
+      // sort proximos partidos by date
+      proximosPartidos.sort((a, b) => {
+        const fechaA = new Date(a.fecha);
+        const fechaB = new Date(b.fecha);
+        return fechaA - fechaB;
+      });
 
-    // sort proximos partidos by date
-    proximosPartidos.sort((a, b) => {
-      const fechaA = new Date(a.fecha);
-      const fechaB = new Date(b.fecha);
-      return fechaA - fechaB;
-    });
+      const proximoPartido = proximosPartidos[0];
+      const localEquipo = equipos.find(
+        (equipo) => equipo.id === proximoPartido.equipoLocal
+      );
+      const visitanteEquipo = equipos.find(
+        (equipo) => equipo.id === proximoPartido.equipoVisitante
+      );
 
-    const proximoPartido = proximosPartidos[0];
-    const localEquipo = equipos.find(
-      (equipo) => equipo.id === proximoPartido.equipoLocal
-    );
-    const visitanteEquipo = equipos.find(
-      (equipo) => equipo.id === proximoPartido.equipoVisitante
-    );
-
-    local.textContent = localEquipo.nombre;
-    visitante.textContent = visitanteEquipo.nombre;
+      local.textContent = localEquipo.nombre;
+      visitante.textContent = visitanteEquipo.nombre;
+    }
   });
 </script>
 
@@ -89,8 +113,8 @@
 <div class="flex place-content-around">
   <div class="card p-4 w-96 flex flex-col">
     <h2 class="text-2xl">Partidos</h2>
-    <p>Partidos pendientes: <span id="pendiente" /></p>
-    <p>Partidos jugados: <span id="jugados" /></p>
+    <p>Partidos pendientes: <span id="pendiente">0</span></p>
+    <p>Partidos jugados: <span id="jugados">0</span></p>
   </div>
   <div class="card p-4 w-96">
     <h2 class="text-2xl">Proximo Partido</h2>

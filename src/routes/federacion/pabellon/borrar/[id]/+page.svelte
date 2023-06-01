@@ -7,10 +7,10 @@
     const $ = (selector) => document.querySelector(selector);
     const deleteButton = $("#delete");
     deleteButton.addEventListener("click", async () => {
-      const domain = window.location.hostname;
+      
       const id = window.location.pathname.split("/").pop();
       try {
-        const response = await fetch(`http://${domain}:3000/pabellon/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/pabellon/${id}`, {
           method: "DELETE",
         });
         if (response.ok) {

@@ -7,9 +7,10 @@
 
   onMount(async () => {
     const getEquipo = async (id) => {
-      const domain = window.location.hostname;
       try {
-        const response = await fetch(`http://${domain}:3000/equipo/${id}`);
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/equipo/${id}`
+        );
         if (response.ok) {
           const data = await response.json();
           return data.data.nombre;
@@ -24,9 +25,10 @@
       }
     };
     const getPabellon = async (id) => {
-      const domain = window.location.hostname;
       try {
-        const response = await fetch(`http://${domain}:3000/pabellon/${id}`);
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/pabellon/${id}`
+        );
         if (response.ok) {
           const data = await response.json();
           return data.data.nombre;
@@ -40,10 +42,12 @@
         console.error("Error al obtener los datos de la API:", error);
       }
     };
-    const domain = window.location.hostname;
+
     try {
       const response = await fetch(
-        `http://${domain}:3000/partido?club=${localStorage.getItem("club")}`
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/partido?club=${localStorage.getItem("club")}`
       );
       if (response.status == 204) {
         return;

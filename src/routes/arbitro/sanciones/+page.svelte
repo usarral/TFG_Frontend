@@ -9,9 +9,11 @@
   onMount(async () => {
     // vecomo
     // get domain from url
-    const domain = window.location.hostname;
+
     try {
-      const response = await fetch(`http://${domain}:3000/sancion`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/sancion`
+      );
       if (response.ok) {
         data = await response.json();
         {

@@ -7,11 +7,10 @@
   let data = []; // Variable para almacenar los datos de la API
 
   onMount(async () => {
-    // vecomo
-    // get domain from url
-    const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/jugador`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/jugador`
+      );
       if (response.ok) {
         data = await response.json();
         if (data.message == "No hay jugadores") {

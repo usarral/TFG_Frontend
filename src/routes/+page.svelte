@@ -3,9 +3,10 @@
 
   onMount(async () => {
     const getPartidos = async () => {
-      const domain = window.location.hostname;
       try {
-        const response = await fetch(`http://${domain}:3000/partido`);
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/partido`
+        );
         if (response.ok) {
           const data = await response.json();
           return data.data;
@@ -20,9 +21,10 @@
       }
     };
     const getEquipos = async () => {
-      const domain = window.location.hostname;
       try {
-        const response = await fetch(`http://${domain}:3000/equipo`);
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/equipo`
+        );
         if (response.ok) {
           const data = await response.json();
           return data.data;

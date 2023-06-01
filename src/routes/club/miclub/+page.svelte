@@ -7,9 +7,8 @@
   let data = [];
 
   onMount(async () => {
-    const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/clubs`);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/clubs`);
       if (response.ok) {
         data = await response.json();
         const $ = (selector) => document.querySelector(selector);

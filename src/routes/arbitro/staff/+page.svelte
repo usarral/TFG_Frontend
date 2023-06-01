@@ -6,9 +6,8 @@
   let data = [];
 
   onMount(async () => {
-    const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/staff`);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/staff`);
       if (response.ok) {
         data = await response.json();
 

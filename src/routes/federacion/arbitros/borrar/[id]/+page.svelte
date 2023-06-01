@@ -7,7 +7,6 @@
     const $ = (selector) => document.querySelector(selector);
     const deleteButton = $("#delete");
     deleteButton.addEventListener("click", async () => {
-      const domain = window.location.hostname;
       const id = window.location.pathname.split("/").pop();
       try {
         const response = await fetch(

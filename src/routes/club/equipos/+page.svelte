@@ -7,10 +7,11 @@
   let data = [];
 
   onMount(async () => {
-    const domain = window.location.hostname;
     try {
       const response = await fetch(
-        `http://${domain}:3000/equipo?club=${localStorage.getItem("club")}`
+        `${import.meta.env.VITE_BACKEND_URL}/equipo?club=${localStorage.getItem(
+          "club"
+        )}`
       );
       if (response.ok) {
         data = await response.json();

@@ -7,9 +7,8 @@
   let data = []; // Variable para almacenar los datos de la API
 
   onMount(async () => {
-    const domain = window.location.hostname;
     try {
-      const response = await fetch(`http://${domain}:3000/club`); // Reemplaza "URL_DE_LA_API" con la URL real de tu API
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/club`); // Reemplaza "URL_DE_LA_API" con la URL real de tu API
       if (response.ok) {
         data = await response.json(); // Almacenar los datos recuperados en la variable data
         //mostrar en la tabla con clase table los datos de la variable data

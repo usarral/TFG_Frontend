@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
   import { checkAuth } from "$functions/checkAuth";
@@ -76,4 +76,4 @@
       Nuevo sancion
     </a>
   </div>
-</div>
+</div> -->

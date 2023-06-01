@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { onMount } from "svelte";
   import { checkAuth } from "$functions/checkAuth";
   checkAuth();
@@ -178,4 +178,4 @@
       Guardar
     </button>
   </div>
-</form>
+</form> -->

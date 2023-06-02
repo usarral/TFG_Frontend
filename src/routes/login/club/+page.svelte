@@ -59,7 +59,7 @@
   <title>Login de clubs</title>
 </svelte:head>
 <form class="text-center" on:submit|preventDefault={handleOnSubmit}>
-  <h1 class="text-6xl text-center p-10">Login de Árbitros</h1>
+  <h1 class="text-6xl text-center p-10">Login de Clubs</h1>
   <label class="label text-left py-4">
     <span>DNI</span>
     <input class="input" type="text" placeholder="DNI" name="DNI" />

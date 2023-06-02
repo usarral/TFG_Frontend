@@ -110,7 +110,7 @@
       <span>CP *</span>
       <input
         class="input"
-        type="text"
+        type="number"
         name="CP"
         placeholder="CP"
         id="CP"

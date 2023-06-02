@@ -82,7 +82,7 @@
     </div>
     <hr class="opacity-50" />
   </a> -->
-  <a class="card card-hover overflow-hidden" href="arbitro/user">
+  <!-- <a class="card card-hover overflow-hidden" href="arbitro/user">
     <header>
       <img
         loading="lazy"
@@ -95,7 +95,7 @@
       <h3 class="h3" data-toc-ignore>Mi Usuario</h3>
     </div>
     <hr class="opacity-50" />
-  </a>
+  </a> -->
 </div>
 
 <style></style>

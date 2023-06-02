@@ -60,19 +60,23 @@
           const pabellon = await getPabellon(partido.pabellon);
           table.innerHTML += `<tr>
             <td>${new Date(partido.fecha).toLocaleDateString()} 
-              ${new Date(partido.fecha).getHours()}:${new Date(
-            partido.fecha
-          ).getMinutes()}</td>
+              ${
+                new Date(partido.fecha).getHours() < 10
+                  ? "0" + new Date(partido.fecha).getHours()
+                  : new Date(partido.fecha).getHours()
+              }:${
+            new Date(partido.fecha).getMinutes() < 10
+              ? "0" + new Date(partido.fecha).getMinutes()
+              : new Date(partido.fecha).getMinutes()
+          }</td>
             <td>${equipoLocal}</td>
             <td>${equipoVisitante}</td>
             <td>${pabellon}</td>
             <td style="display: flex;flex-direction: column;">
-                <a href="/federacion/partidos/editar/${
+                <a href="/arbitro/partidos/editar/${
                   partido.id
                 }" class="btn btn-sm variant-primary">Editar</a>
-                <a href="/federacion/partidos/borrar/${
-                  partido.id
-                }" class="btn btn-sm variant-danger">Borrar</a>
+                
                 </td>`;
         });
       } else {
@@ -100,14 +104,6 @@
 
 <div class="flex flex-col gap-8">
   <h1 class="text-4xl text-center py-8">Gestión de partidos</h1>
-  <div class="flex flex-row justify-center">
-    <input
-      type="text"
-      class="form-control input w-80"
-      placeholder="Buscar partido"
-    />
-    <button class="btn variant-filled-primary">Buscar</button>
-  </div>
   <Table source={tableSimple} />
   <div class="text-center">
     <a

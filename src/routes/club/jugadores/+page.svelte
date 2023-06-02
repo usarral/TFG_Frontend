@@ -16,6 +16,8 @@
       );
       if (response.ok) {
         data = await response.json();
+        console.log(data);
+
         const $ = (selector) => document.querySelector(selector);
         const table = $(".table");
         data.data.forEach((jugador) => {
@@ -38,14 +40,7 @@ loading="lazy" class="rounded-full" src="${jugador.foto}"></td>
                   }</td>
                   <td>${jugador.DNI}</td> 
                   <td>${jugador.email}</td>  
-                  <td style="display: flex;flex-direction: column;">
-                      <a href="/federacion/categorias/editar/${
-                        jugador.id
-                      }" class="btn btn-sm variant-primary">Editar</a>
-                      <a href="/federacion/categorias/borrar/${
-                        jugador.id
-                      }" class="btn btn-sm variant-danger">Borrar</a>
-                      </td>`;
+                  </tr>`;
         });
       } else {
         console.error("Error al obtener los datos de la API:", response.status);
@@ -55,7 +50,7 @@ loading="lazy" class="rounded-full" src="${jugador.foto}"></td>
     }
   });
   const tableSimple = {
-    head: ["Foto", "Nombre", "Fecha de nacimiento", "DNI", "Email", "Acciones"], //Pasar datos a la tabla aqui
+    head: ["Foto", "Nombre", "Fecha de nacimiento", "DNI", "Email"], //Pasar datos a la tabla aqui
     body: tableMapperValues(data),
   };
 </script>
@@ -67,18 +62,4 @@ loading="lazy" class="rounded-full" src="${jugador.foto}"></td>
 <div class="flex flex-col gap-8">
   <h1 class="text-4xl text-center py-8">Gestión de jugadores</h1>
   <Table source={tableSimple} />
-  <div class="text-center">
-    <a
-      href="/federacion/jugadors/crear"
-      class="
-          btn
-          variant-filled-primary
-          m-4
-          p-4
-          w-80
-          "
-    >
-      Nuevo jugador
-    </a>
-  </div>
 </div>

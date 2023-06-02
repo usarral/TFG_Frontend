@@ -1,14 +1,18 @@
 <script>
+  import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
   import { checkAuth } from "$functions/checkAuth";
-  import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   checkAuth();
+
   let data = [];
 
   onMount(async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/staff`);
       if (response.ok) {
+        if (response.status == 204) {
+          return;
+        }
         data = await response.json();
 
         if (data.message != "No hay staff") {
@@ -35,14 +39,7 @@
             }</td>
             <td>${staff.DNI}</td>
             <td>${staff.estado}</td>
-            <td style="display: flex;flex-direction: column;">
-                <a href="/federacion/staff/editar/${
-                  staff.id
-                }" class="btn btn-sm variant-primary">Editar</a>
-                <a href="/federacion/staff/borrar/${
-                  staff.id
-                }" class="btn btn-sm variant-danger">Borrar</a>
-                </td>`;
+            </tr>`;
           });
         }
       } else {
@@ -53,7 +50,7 @@
     }
   });
   const tableSimple = {
-    head: ["Foto", "Nombre", "Edad", "DNI", "Estado", "Acciones"],
+    head: ["Foto", "Nombre", "Edad", "DNI", "Estado"],
     body: tableMapperValues(data),
   };
 </script>
@@ -64,21 +61,5 @@
 
 <div class="flex flex-col gap-8">
   <h1 class="text-4xl text-center py-8">Gestión de Staff</h1>
-  <div class="flex flex-row justify-center">
-    <input
-      type="text"
-      class="form-control input w-80"
-      placeholder="Buscar jugador"
-    />
-    <button class="btn variant-filled-primary">Buscar</button>
-  </div>
   <Table source={tableSimple} />
-  <div class="text-center">
-    <a
-      href="/federacion/staff/crear"
-      class=" btn variant-filled-primary m-4 p-4 w-80"
-    >
-      Nuevo staff
-    </a>
-  </div>
 </div>

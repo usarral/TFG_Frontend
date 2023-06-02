@@ -5,7 +5,6 @@
   checkAuth();
 
   let data = [];
-
   onMount(async () => {
     try {
       const response = await fetch(
@@ -18,16 +17,14 @@
         const $ = (selector) => document.querySelector(selector);
         const table = $(".table");
         data.data.forEach((element) => {
+          console.log(element);
+
           table.innerHTML += `<tr>
-            <td><img
-loading="lazy" class="rounded-full" src="${element.escudo}"></td>
+            <td><img loading="lazy" class="rounded-full" src="${element.escudo}"></td>
             <td>${element.nombre}</td>
             <td>${element.email}</td>
             <td>${element.telefono}</td>
-            <td>
-              <a href="/federacion/equipos/editar/${element.id}" class="btn variant-filled-primary">Editar</a>
-              <a href="/federacion/equipos/eliminar/${element.id}" class="btn variant-filled-danger">Eliminar</a>
-            </td>
+            
             </td>`;
         });
       } else {
@@ -38,7 +35,7 @@ loading="lazy" class="rounded-full" src="${element.escudo}"></td>
     }
   });
   const tableSimple = {
-    head: ["Foto", "Nombre", "Email", "Teléfono", "Acciones"],
+    head: ["Foto", "Nombre", "Email", "Teléfono"], //Pasar datos a la tabla aqui
     body: tableMapperValues(data),
   };
 </script>
@@ -49,19 +46,13 @@ loading="lazy" class="rounded-full" src="${element.escudo}"></td>
 
 <div class="flex flex-col gap-8">
   <h1 class="text-4xl text-center py-8">Gestión de equipos</h1>
-  <Table source={tableSimple} />
-  <div class="text-center">
-    <a
-      href="/federacion/equipos/crear"
-      class="
-        btn
-        variant-filled-primary
-        m-4
-        p-4
-        w-80
-        "
-    >
-      Nuevo equipo
-    </a>
+  <div class="flex flex-row justify-center">
+    <input
+      type="text"
+      class="form-control input w-80"
+      placeholder="Buscar equipo"
+    />
+    <button class="btn variant-filled-primary">Buscar</button>
   </div>
+  <Table source={tableSimple} />
 </div>

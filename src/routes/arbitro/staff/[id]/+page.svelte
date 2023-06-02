@@ -10,21 +10,23 @@
       const [key, value] = field;
       data.push({ key, value });
     }
+    // Cuando tenemos los datos, data es un array de objetos, cada objeto tiene una key y un value
+    //para enviarlo a la API, tenemos que convertirlo a un objeto con la key y el value
     const dataObject = data.reduce((acc, { key, value }) => {
       acc[key] = value;
       return acc;
     }, {});
     const res = sendForm(dataObject).then((res) =>
-      res.message === "Jugador actualizado"
-        ? (window.location.href = "/federacion/jugadores")
-        : alert("Error al actualizar equipo")
+      res.message === "Staff actualizado"
+        ? (window.location.href = "/federacion/staff")
+        : alert("Error al actualizar staff")
     );
   };
 
   const sendForm = async (data) => {
     const id = window.location.href.split("/").pop();
     const response = await fetch(
-      `http://${window.location.hostname}:3000/jugador/` + id,
+      `http://${window.location.hostname}:3000/staff/` + id,
       {
         method: "PUT",
         headers: {
@@ -37,79 +39,25 @@
     return res;
   };
   onMount(async () => {
-    const getClubs = async () => {
-      const response = await fetch(
-        `http://${window.location.hostname}:3000/club`
-      );
-
-      const res = await response.json();
-      const clubs = res.data;
-      const select = document.getElementById("club");
-      clubs.forEach((club) => {
-        const option = document.createElement("option");
-        option.value = club.id;
-        option.text = club.nombre;
-        select.appendChild(option);
-      });
-    };
-    const getCategorias = async () => {
-      const response = await fetch(
-        `http://${window.location.hostname}:3000/categoria`
-      );
-
-      const res = await response.json();
-      const categorias = res.data;
-      const select = document.getElementById("categoria");
-      categorias.forEach((categoria) => {
-        const option = document.createElement("option");
-        option.value = categoria.id;
-        option.text = categoria.nombre;
-        select.appendChild(option);
-      });
-    };
-    const getEquipos = async () => {
-      const response = await fetch(
-        `http://${window.location.hostname}:3000/equipo`
-      );
-
-      const res = await response.json();
-      const responsables = res.data;
-      const select = document.getElementById("equipo");
-      responsables.forEach((equipo) => {
-        const option = document.createElement("option");
-        option.value = equipo.id;
-        option.text = equipo.nombre;
-        select.appendChild(option);
-      });
-    };
-    getClubs();
-    getCategorias();
-    getEquipos();
     // const id = //get id as last part of url
     const id = window.location.href.split("/").pop();
     const getData = async () => {
       const response = await fetch(
-        `http://${window.location.hostname}:3000/jugador/${id}`
+        `http://${window.location.hostname}:3000/staff/${id}`
       );
       const res = await response.json();
       return res.data;
     };
     const printDataToForm = (data) => {
       const $ = (selector) => document.querySelector(selector);
-      console.log(data);
-
       $("#nombre").value = data.nombre;
       $("#nombre").removeAttribute("readonly");
       $("#apellido").value = data.apellido;
       $("#apellido").removeAttribute("readonly");
       $("#apellido2").value = data.apellido2;
       $("#apellido2").removeAttribute("readonly");
-      $("#DNI").value = data.DNI;
-      $("#DNI").removeAttribute("readonly");
-      $("#fechaNacimiento").value = new Date(data.fechaNacimiento)
-        .toISOString()
-        .split("T")[0];
-      $("#fechaNacimiento").removeAttribute("readonly");
+      $("#dni").value = data.DNI;
+      $("#dni").removeAttribute("readonly");
       $("#telefono").value = data.telefono;
       $("#telefono").removeAttribute("readonly");
       $("#email").value = data.email;
@@ -122,12 +70,12 @@
       $("#provincia").removeAttribute("readonly");
       $("#CP").value = data.CP;
       $("#CP").removeAttribute("readonly");
-      $("#club").value = data.club;
-      $("#categoria").value = data.categoria;
-      $("#equipo").value = data.equipo;
-      $("#club").removeAttribute("readonly");
-      $("#categoria").removeAttribute("readonly");
-      $("#equipo").removeAttribute("readonly");
+      $("#cargo").value = data.cargo;
+      $("#cargo").removeAttribute("readonly");
+      $("#fecha").value = new Date(data.fechaNacimiento)
+        .toISOString()
+        .split("T")[0];
+      $("#fecha").removeAttribute("readonly");
     };
     const data = await getData();
     printDataToForm(data);
@@ -135,11 +83,11 @@
 </script>
 
 <svelte:head>
-  <title>Editar Jugador - PerformSquad</title>
+  <title>Editar Staff - PerformSquad</title>
 </svelte:head>
 
 <form on:submit|preventDefault={handleOnSubmit}>
-  <h1 class="text-4xl text-center py-8">Nuevo Jugador</h1>
+  <h1 class="text-4xl text-center py-8">Nuevo Staff</h1>
 
   <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">
@@ -165,13 +113,13 @@
       />
     </label>
     <label class="label text-left py-4 w-full">
-      <span>Segundo apellido</span>
+      <span>Segundo Apellido</span>
       <input
         class="input"
         type="text"
+        id="apellido2"
         name="apellido2"
         placeholder="Segundo Apellido"
-        id="apellido2"
       />
     </label>
   </div>
@@ -183,27 +131,15 @@
         type="text"
         name="DNI"
         placeholder="DNI"
-        id="DNI"
+        id="dni"
         required
       />
     </label>
-    <label class="label text-left py-4 w-full">
-      <span>Fecha de nacimiento *</span>
-      <input
-        class="input"
-        type="date"
-        name="fechaNacimiento"
-        id="fechaNacimiento"
-        required
-      />
-    </label>
-  </div>
-  <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">
       <span>Teléfono *</span>
       <input
         class="input"
-        type="number"
+        type="text"
         name="telefono"
         id="telefono"
         placeholder="Teléfono"
@@ -224,24 +160,28 @@
   </div>
   <div class="flex flex-row gap-8 w-full">
     <label class="label text-left py-4 w-full">
-      <span>Club *</span>
-      <select class="input" name="club" id="club" required>
-        <option value="" disabled selected>Selecciona un club</option>
-      </select>
-    </label>
-    <label class="label text-left py-4 w-full">
-      <span>Categoria *</span>
-      <select class="input" name="categoria" id="categoria" required>
-        <option value="" disabled selected>Selecciona una categoría</option>
-      </select>
-    </label><label class="label text-left py-4 w-full">
-      <span>Equipo *</span>
-      <select class="input" name="equipo" id="equipo" required>
-        <option value="" disabled selected>Selecciona un equipo</option>
-      </select>
+      <span>Cargo *</span>
+      <input
+        class="input"
+        type="text"
+        name="cargo"
+        placeholder="Cargo en el club"
+        id="cargo"
+        required
+      />
     </label>
   </div>
   <div class="flex flex-row gap-8 w-full">
+    <label class="label text-left py-4 w-full">
+      <span>Fecha Nacimiento *</span>
+      <input
+        class="input"
+        name="fechaNacimiento"
+        type="date"
+        id="fecha"
+        required
+      />
+    </label>
     <label class="label text-left py-4 w-full">
       <span>Dirección *</span>
       <input
@@ -281,7 +221,7 @@
       <span>Código Postal *</span>
       <input
         class="input"
-        type="number"
+        type="text"
         name="CP"
         id="CP"
         placeholder="Ej: 50001"

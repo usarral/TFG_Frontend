@@ -52,9 +52,9 @@
       </button>
     </span>
     <span class="hidden" id="guest">
-      <a class="btn btn-sm variant-ghost-surface" href="/afiliacion">
+      <!-- <a class="btn btn-sm variant-ghost-surface" href="/afiliacion">
         Afiliarse
-      </a>
+      </a> -->
       <a class="btn btn-sm variant-ghost-surface" href="/login"> Login </a>
     </span>
   </svelte:fragment>

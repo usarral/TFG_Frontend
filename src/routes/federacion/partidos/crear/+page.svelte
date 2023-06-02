@@ -109,7 +109,7 @@
     };
     const getArbitros = async () => {
       const response = await fetch(
-        `http://${window.location.hostname}:3000/staff`
+        `http://${window.location.hostname}:3000/arbitro`
       );
 
       const res = await response.json();

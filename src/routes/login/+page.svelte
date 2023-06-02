@@ -3,7 +3,7 @@
 </svelte:head>
 
 <div class="w-full text-token grid grid-cols-2 md:grid-cols-3 gap-8">
-  <a class="card card-hover overflow-hidden" href="afiliacion">
+  <!-- <a class="card card-hover overflow-hidden" href="afiliacion">
     <header>
       <img
         loading="lazy"
@@ -16,7 +16,8 @@
       <h3 class="h3" data-toc-ignore>Afiliación</h3>
     </div>
     <hr class="opacity-50" />
-  </a><a class="card card-hover overflow-hidden" href="login/arbitro">
+  </a> -->
+  <a class="card card-hover overflow-hidden" href="login/arbitro">
     <header>
       <img
         loading="lazy"
